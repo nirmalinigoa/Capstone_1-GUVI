@@ -39,14 +39,14 @@ if selected_tab == "Home":
         # YouTube API connection
         api_service_name = "youtube"
         api_version = "v3"
-        api_key = 'AIzaSyDspFV6ZCjRRQDPo6SA8xNkutTR_ih2PKY'
+        api_key = 'YOUR API KEY'
         youtube = googleapiclient.discovery.build(
             api_service_name, api_version, developerKey=api_key
         )
 
         # MongoDB connection
         encoded_password = urllib.parse.quote_plus("Nirmal@2000")
-        uri = f"mongodb+srv://nirmalinigoa:{encoded_password}@cluster0.2mrcbw2.mongodb.net/?retryWrites=true&w=majority"
+        uri = f"mongodb+srv://usernamepassword@cluster0.2mrcbw2.mongodb.net/?retryWrites=true&w=majority"
         client = MongoClient(uri, server_api=ServerApi('1'))
 
         db = client["Capstone_1"]
@@ -217,7 +217,7 @@ if selected_tab == "Home":
         mysql_db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="Nirmal@0912",
+            password="YOUR PASSWORD",
             database="Capstone"
         )
 
@@ -356,7 +356,7 @@ elif selected_tab == "Insights":
     with mysql.connector.connect(
             host="localhost",
             user="root",
-            password="Nirmal@0912",
+            password="YOUR PASSWORD",
             database="Capstone"
     ) as connection:
         with st.sidebar:
