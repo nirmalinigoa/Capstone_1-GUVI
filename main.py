@@ -376,17 +376,17 @@ elif selected_tab == "Insights":
              'names?',
              '10. Which videos have the highest number of comments, and what are their corresponding channel names?'))
 
-        if question == '1. What are the names of all the videos and their corresponding channels?':
+                if question == '1. What are the names of all the videos and their corresponding channels?':
             query = "SELECT Title, ChannelName FROM videos;"
         elif question == '2. Which channels have the most number of videos, and how many videos do they have?':
             query = "SELECT ChannelName, VideoCount FROM channels ORDER BY VideoCount DESC limit 1;"
         elif question == '3. What are the top 10 most viewed videos and their respective channels?':
-            query = "SELECT Title as Video_Name,  ViewCount as Views FROM videos ORDER BY ViewCount DESC LIMIT 10;"
+            query = "SELECT ChannelName,Title as Video_Name,  ViewCount as Views FROM videos ORDER BY ViewCount DESC LIMIT 10;"
         elif question == '4. How many comments were made on each video, and what are their corresponding video names?':
             query = "SELECT Title as Video_Name, Comments_Count FROM videos;"
         elif question == ('5. Which videos have the highest number of likes, and what are their corresponding channel '
                           'names? '):
-            query = "SELECT ChannelName, Likes FROM videos ORDER BY Likes DESC LIMIT 1;"
+            query = "SELECT ChannelName, Title as Video_Name, Likes FROM videos ORDER BY Likes DESC LIMIT 1;"
         elif question == ('6. What is the total number of likes  for each video, and what are their corresponding '
                           'video names?'):
             query = "SELECT ChannelName, Title, Likes FROM videos;"
@@ -397,11 +397,11 @@ elif selected_tab == "Insights":
             query = "SELECT Title, ChannelName, Published_Date FROM videos WHERE YEAR(Published_Date) = 2022;"
         elif question == ('9. What is the average duration of all videos in each channel, and what are their '
                           'corresponding channel names?'):
-            query = ("SELECT ChannelName, AVG(time_to_sec(duration)) as average_duration FROM videos GROUP BY "
-                     "ChannelName;")
+            query = ("SELECT ChannelName, truncate(avg(time_to_sec(duration))/60,0) as average_duration FROM videos "
+                     "GROUP BY ChannelName;")
         elif question == ('10. Which videos have the highest number of comments, and what are their corresponding '
                           'channel names?'):
-            query = "SELECT ChannelName, Comments_Count FROM videos ORDER BY Comments_Count DESC LIMIT 1;"
+            query = "SELECT ChannelName,Title as Video_Name, Comments_Count FROM videos ORDER BY Comments_Count DESC LIMIT 1;"
 
         with connection.cursor() as cursor:
             cursor.execute(query)
@@ -417,13 +417,14 @@ elif selected_tab == "About":
 
     st.write("### Features:")
     st.write("- Extracts channel data using the YouTube API.")
-    st.write("- Retrieves video details and comments, storing them in MongoDB.")
+    st.write("- Retrieves video details and comments, storing them in :green[MongoDB].")
     st.write("- Populates a MySQL database with extracted data.")
     st.write("- Offers a streamlined user interface with Streamlit tabs for easy navigation.")
     st.write("- Provides insightful queries in the 'Insights' tab for data analysis.")
 
     st.write("### How to Use:")
-    st.write("1. Navigate to the 'Home' tab.")
-    st.write("2. Enter a YouTube channel ID and click 'EXTRACT' to fetch data.")
-    st.write("3. View extracted data in the 'Insights' tab by selecting specific questions.")
+    st.write("1. Navigate to the **:orange[Home]** tab.")
+    st.write("2. Enter a YouTube channel ID and click **:orange[EXTRACT]** to fetch data.")
+    st.write("3. View extracted data in the **:orange[Insights]** tab by selecting specific questions.")
     st.write("4. Explore additional details and insights about the application.")
+
